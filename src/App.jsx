@@ -1,35 +1,100 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// src/App.jsx
+import { useState } from "react";
 
 function App() {
-  const [count, setCount] = useState(0)
+  // Estado para armazenar os valores do formulário
+  const [grauEsferico, setGrauEsferico] = useState("");
+  const [grauCilindrico, setGrauCilindrico] = useState("");
+  const [resultado, setResultado] = useState("");
+
+  // Função executada ao enviar o formulário
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Simulação da busca de lente
+    if (grauEsferico && grauCilindrico) {
+      setResultado(`Buscando lentes para Esférico: ${grauEsferico}, Cilíndrico: ${grauCilindrico}`);
+    } else {
+      setResultado("Por favor, preencha ambos os campos.");
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+    <div style={styles.container}>
+      <h1 style={styles.title}>Busca de Lentes</h1>
+
+      <form onSubmit={handleSubmit} style={styles.form}>
+        <div style={styles.inputGroup}>
+          <label>Grau Esférico:</label>
+          <input
+            type="number"
+            step="0.25"
+            value={grauEsferico}
+            onChange={(e) => setGrauEsferico(e.target.value)}
+            placeholder="Ex: -2.00"
+          />
+        </div>
+
+        <div style={styles.inputGroup}>
+          <label>Grau Cilíndrico:</label>
+          <input
+            type="number"
+            step="0.25"
+            value={grauCilindrico}
+            onChange={(e) => setGrauCilindrico(e.target.value)}
+            placeholder="Ex: -1.00"
+          />
+        </div>
+
+        <button type="submit" style={styles.button}>
+          Buscar Lente
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      </form>
+
+      {resultado && <p style={styles.resultado}>{resultado}</p>}
+    </div>
+  );
 }
 
-export default App
+// 🎨 Estilos simples usando JS (sem CSS externo por enquanto)
+const styles = {
+  container: {
+    maxWidth: "400px",
+    margin: "50px auto",
+    padding: "20px",
+    textAlign: "center",
+    border: "1px solid #ccc",
+    borderRadius: "10px",
+    boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+    fontFamily: "Arial, sans-serif",
+  },
+  title: {
+    marginBottom: "20px",
+    color: "#2b2b2b",
+  },
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "15px",
+  },
+  inputGroup: {
+    display: "flex",
+    flexDirection: "column",
+    textAlign: "left",
+  },
+  button: {
+    padding: "10px",
+    backgroundColor: "#007bff",
+    color: "#fff",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    fontWeight: "bold",
+  },
+  resultado: {
+    marginTop: "20px",
+    color: "#333",
+  },
+};
+
+export default App;
