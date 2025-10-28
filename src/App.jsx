@@ -1,100 +1,82 @@
-// src/App.jsx
-import { useState } from "react";
+import React, { useState } from "react";
+import lentesData from "./data/lentes.json?raw"; // <- import corrigido
 
-function App() {
-  // Estado para armazenar os valores do formulário
-  const [grauEsferico, setGrauEsferico] = useState("");
-  const [grauCilindrico, setGrauCilindrico] = useState("");
-  const [resultado, setResultado] = useState("");
+const lentes = JSON.parse(lentesData); // <- converte o texto em JSON
 
-  // Função executada ao enviar o formulário
-  const handleSubmit = (e) => {
+export default function App() {
+  const [esferico, setEsferico] = useState("");
+  const [cilindrico, setCilindrico] = useState("");
+  const [resultado, setResultado] = useState([]);
+
+  const buscarLentes = (e) => {
     e.preventDefault();
 
-    // Simulação da busca de lente
-    if (grauEsferico && grauCilindrico) {
-      setResultado(`Buscando lentes para Esférico: ${grauEsferico}, Cilíndrico: ${grauCilindrico}`);
-    } else {
-      setResultado("Por favor, preencha ambos os campos.");
-    }
+    const lentesEncontradas = lentes.filter(
+      (lente) =>
+        esferico >= lente.esferico_min &&
+        esferico <= lente.esferico_max &&
+        cilindrico >= lente.cilindrico_min &&
+        cilindrico <= lente.cilindrico_max
+    );
+
+    setResultado(lentesEncontradas);
   };
 
   return (
-    <div style={styles.container}>
-      <h1 style={styles.title}>Busca de Lentes</h1>
 
-      <form onSubmit={handleSubmit} style={styles.form}>
-        <div style={styles.inputGroup}>
-          <label>Grau Esférico:</label>
-          <input
-            type="number"
-            step="0.25"
-            value={grauEsferico}
-            onChange={(e) => setGrauEsferico(e.target.value)}
-            placeholder="Ex: -2.00"
-          />
+    
+    <div style={{ padding: "2rem", fontFamily: "sans-serif" }}>
+      <h1>Busca de Lentes</h1>
+      <h1 className="text-4xl font-bold text-blue-600">Tailwind funcionando! 🎉</h1>
+
+      <form onSubmit={buscarLentes} style={{ marginBottom: "1rem" }}>
+        <div>
+          <label>
+            Esférico:
+            <input
+              type="number"
+              step="0.25"
+              value={esferico}
+              onChange={(e) => setEsferico(parseFloat(e.target.value))}
+            />
+          </label>
         </div>
-
-        <div style={styles.inputGroup}>
-          <label>Grau Cilíndrico:</label>
-          <input
-            type="number"
-            step="0.25"
-            value={grauCilindrico}
-            onChange={(e) => setGrauCilindrico(e.target.value)}
-            placeholder="Ex: -1.00"
-          />
+        <div>
+          <label>
+            Cilíndrico:
+            <input
+              type="number"
+              step="0.25"
+              value={cilindrico}
+              onChange={(e) => setCilindrico(parseFloat(e.target.value))}
+            />
+          </label>
         </div>
-
-        <button type="submit" style={styles.button}>
-          Buscar Lente
-        </button>
+        <button type="submit">Buscar</button>
       </form>
 
-      {resultado && <p style={styles.resultado}>{resultado}</p>}
+      {resultado.length > 0 ? (
+        <ul>
+          {resultado.map((lente) => (
+            <li key={lente.id}>
+              {lente.nome} — R${lente.preco.toFixed(2)}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>Nenhuma lente encontrada.</p>
+      )}
     </div>
   );
+
+  return (
+    
+    <div className="flex h-screen items-center justify-center bg-blue-100">
+      <h1 className="text-3xl font-bold text-blue-600">
+        Tailwind funcionando! 🎉
+      </h1>
+    </div>
+  );
+
 }
 
-// 🎨 Estilos simples usando JS (sem CSS externo por enquanto)
-const styles = {
-  container: {
-    maxWidth: "400px",
-    margin: "50px auto",
-    padding: "20px",
-    textAlign: "center",
-    border: "1px solid #ccc",
-    borderRadius: "10px",
-    boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-    fontFamily: "Arial, sans-serif",
-  },
-  title: {
-    marginBottom: "20px",
-    color: "#2b2b2b",
-  },
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "15px",
-  },
-  inputGroup: {
-    display: "flex",
-    flexDirection: "column",
-    textAlign: "left",
-  },
-  button: {
-    padding: "10px",
-    backgroundColor: "#007bff",
-    color: "#fff",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
-    fontWeight: "bold",
-  },
-  resultado: {
-    marginTop: "20px",
-    color: "#333",
-  },
-};
-
-export default App;

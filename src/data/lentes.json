@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "nome": "Lente Monofocal Standard",
+    "esferico_min": -2.00,
+    "esferico_max": 2.00,
+    "cilindrico_min": -2.00,
+    "cilindrico_max": 0.00,
+    "preco": 150.00
+  },
+  {
+    "id": 2,
+    "nome": "Lente Monofocal Premium",
+    "esferico_min": -6.00,
+    "esferico_max": 6.00,
+    "cilindrico_min": -4.00,
+    "cilindrico_max": 0.00,
+    "preco": 300.00
+  },
+  {
+    "id": 3,
+    "nome": "Lente Bifocal Clássica",
+    "esferico_min": -4.00,
+    "esferico_max": 4.00,
+    "cilindrico_min": -2.00,
+    "cilindrico_max": 0.00,
+    "preco": 250.00
+  },
+  {
+    "id": 4,
+    "nome": "Lente Multifocal Avançada",
+    "esferico_min": -8.00,
+    "esferico_max": 8.00,
+    "cilindrico_min": -6.00,
+    "cilindrico_max": 0.00,
+    "preco": 500.00
+  }
+]
