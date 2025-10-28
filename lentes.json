@@ -1,0 +1,11 @@
+[
+  {
+    "marca": "Crizal Easy",
+    "tipo": "VS",
+    "esferico_min": "-3.00",
+    "esferico_max": "3.00",
+    "cilindrico_min": "-2.00",
+    "cilindrico_max": "2.00",
+    "preco": "299"
+  }
+]
