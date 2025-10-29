@@ -106,7 +106,7 @@ export default function App() {
                     {lente.cilindrico_min} → {lente.cilindrico_max}
                   </p>
                   <p className="font-semibold text-green-600">
-                    💰 R$ {lente.preco.toFixed(2)}
+                    💰 R$ {Number(lente.preco) ? Number(lente.preco).toFixed(2) : "—"}
                   </p>
                 </li>
               ))}

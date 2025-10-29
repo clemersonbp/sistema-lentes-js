@@ -7,5 +7,14 @@
     "cilindrico_min": "-2.00",
     "cilindrico_max": "2.00",
     "preco": "299"
+  },
+  {
+    "marca": "Prime One",
+    "tipo": "Multifocal",
+    "esferico_min": -7,
+    "esferico_max": 7,
+    "cilindrico_min": -6,
+    "cilindrico_max": 6,
+    "preco": 699
   }
 ]
